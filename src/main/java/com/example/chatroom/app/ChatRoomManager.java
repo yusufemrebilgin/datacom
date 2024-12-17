@@ -21,7 +21,7 @@ public class ChatRoomManager {
             throw new IllegalArgumentException("A given room name is already exists");
         }
 
-        ChatRoom room = new ChatRoom(name, password, admin);
+        ChatRoom room = new ChatRoom(name, password);
         chatRooms.put(name, room);
 
         logger.info("Chat room '{}' created successfully by admin: {}", name, admin);

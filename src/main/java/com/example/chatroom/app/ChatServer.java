@@ -2,6 +2,10 @@ package com.example.chatroom.app;
 
 import com.example.chatroom.command.CommandHandler;
 import com.example.chatroom.command.CommandRegistry;
+import com.example.chatroom.command.CreateCommand;
+import com.example.chatroom.command.HelpCommand;
+import com.example.chatroom.command.JoinCommand;
+import com.example.chatroom.command.LeaveCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,7 +93,10 @@ public class ChatServer {
     }
 
     private void registerCommands() {
-        // todo: register all commands
+        registry.register(new CreateCommand(roomManager));
+        registry.register(new JoinCommand(roomManager));
+        registry.register(new LeaveCommand(roomManager));
+        registry.register(new HelpCommand(registry));
     }
 
 }

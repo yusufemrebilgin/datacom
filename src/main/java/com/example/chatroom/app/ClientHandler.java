@@ -77,14 +77,34 @@ public record ClientHandler(Socket clientSocket, CommandHandler commandHandler) 
     private void processMessages(User client, BufferedReader in) throws IOException {
         String message;
         while ((message = in.readLine()) != null) {
-            if (message.trim().isEmpty()) continue;
+            if (message.trim().isEmpty())
+                continue;
             if (!message.startsWith("/")) {
-                client.broadcast(String.format("%s:> %s", client, message));
+                if (client.getCurrentRoom() != null) {
+                    client.broadcast(String.format("%s:> %s", client, message));
+                } else {
+                    client.receiveMessage("> Join a room to send a message");
+                }
             } else {
                 commandHandler.handle(message, client);
             }
         }
     }
+
+//    private void sendSystemMessageTo(User user, String message) {
+//        if (user == null) {
+//            logger.warn("User cannot be null for system message");
+//            return;
+//        }
+//
+//        if (message == null || message.isBlank()) {
+//            logger.warn("Message cannot be blank or null");
+//            return;
+//        }
+//
+//        String formattedSystemMessage = String.format()
+//
+//    }
 
     private void closeSocket() {
         if (clientSocket != null && !clientSocket.isClosed()) {

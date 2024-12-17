@@ -11,15 +11,13 @@ public class ChatRoom {
     private final String name;
     private final String password;
 
-    private final User admin;
     private final Set<User> users;
 
     private static final Logger logger = LoggerFactory.getLogger(ChatRoom.class);
 
-    public ChatRoom(String name, String password, User admin) {
+    public ChatRoom(String name, String password) {
         this.name = name.trim();
         this.password = password.trim();
-        this.admin = admin;
         users = ConcurrentHashMap.newKeySet();
     }
 
